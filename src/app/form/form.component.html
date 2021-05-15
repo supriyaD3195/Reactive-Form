@@ -1,0 +1,115 @@
+<mat-card>
+  <mat-card-content>
+    <div class="hearder">
+      <h2>Form</h2>
+    </div>
+    <form (ngSubmit)="onSubmit()" name="form" [formGroup]="form">
+      <div class="input">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label> City </mat-label>
+          <input
+            [(ngModel)]="request.city"
+            formControlName="city"
+            matInput
+            required
+          />
+          <mat-error *ngIf="form.get('city').errors?.required">
+            City Name Required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label> PAN Number </mat-label>
+          <input
+            [(ngModel)]="request.panNumber"
+            type="text"
+            placeholder="ABCDE1111D"
+            formControlName="panNumber"
+            matInput
+            required
+          />
+          <mat-error *ngIf="form.get('panNumber').errors?.required">
+            PAN Number Required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label> Full Name </mat-label>
+          <input
+            [(ngModel)]="request.fullname"
+            type="text"
+            placeholder="AAA BBB CCC"
+            formControlName="name"
+            matInput
+            required
+          />
+          <mat-error *ngIf="form.get('name').errors?.required">
+            Full Name Required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label> Email </mat-label>
+          <input
+            [(ngModel)]="request.email"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$"
+            type="email"
+            placeholder="abc@gmail.com"
+            formControlName="Email"
+            matInput
+            required
+          />
+          <mat-error *ngIf="form.get('Email').errors?.required">
+            Email Required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label> Mobile Number </mat-label>
+
+          <input
+            [(ngModel)]="request.mobile"
+            type="tel"
+            placeholder="0000000000"
+            value="+91"
+            maxlength="10"
+            minlength="10"
+            formControlName="mobile"
+            matInput
+            required
+          />
+          <span matPrefix>+91&nbsp; &nbsp;&nbsp;</span>
+          <mat-error *ngIf="form.get('mobile').errors?.required">
+            Mobile Number Required
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </form>
+
+    <mat-label *ngIf="OtpSend == true"
+      >OTP is <span name="otp">{{ otp }}</span></mat-label
+    ><br />
+
+    <div class="row text-center" *ngIf="OtpSend == false">
+      <button type="submit" class="btn" (click)="SendOTP(form)">
+        Send OTP
+      </button>
+    </div>
+    <div class="row" *ngIf="OtpSend == true">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label> Otp </mat-label>
+        <input
+          name="otp"
+          [(ngModel)]="requestVerifyOTP.otp"
+          maxlength="4"
+          matInput
+        /> </mat-form-field
+      ><br />
+
+      <mat-label>OTP Resend after 3 Minutes </mat-label><br />
+      <div class="col-md-12">
+        <button type="submit" class="btnverify" (click)="verifyOTP(form)">
+          Verify OTP</button
+        >&nbsp;
+        <button  [disabled]="!otpResend" class="btnverify" (click)="ReSendOTP(form)">Resend OTP</button>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
